@@ -1,0 +1,236 @@
+@import "tailwindcss";
+
+/*
+ * Palette "Paradis Services" :
+ * - clay (terracotta chaud) : accent principal, chaleur/accueil — CTA, prix, badges.
+ * - pine (vert ardoise profond) : couleur d'ancrage, confiance/sérénité — header sombre, footer, textes forts.
+ * - linen (sable/lin clair) : fond neutre chaud, évoque le tissu/l'accueil plutôt que le blanc froid.
+ * Choisi pour un ton "hôtellerie/coliving" rassurant, différent du beige/cognac "haute couture" du site frère.
+ */
+@theme {
+  --color-linen-50: #fbf7f1;
+  --color-linen-100: #f5ede1;
+  --color-linen-200: #ecdfc9;
+  --color-linen-300: #ddc9a8;
+  --color-linen-400: #c7ab80;
+
+  --color-pine-300: #7c9186;
+  --color-pine-500: #45594c;
+  --color-pine-700: #2c3b31;
+  --color-pine-800: #212e26;
+  --color-pine-900: #17211b;
+  --color-pine-950: #101712;
+
+  --color-clay-300: #e2a077;
+  --color-clay-400: #d0824f;
+  --color-clay-500: #b96a3a;
+  --color-clay-600: #9a5630;
+  --color-clay-700: #7d4527;
+
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", "Segoe UI", Tahoma, sans-serif;
+
+  --animate-marquee: marquee 30s linear infinite;
+  --animate-kenburns: kenburns 24s ease-in-out infinite alternate;
+  --animate-spin-slow: spin 26s linear infinite;
+  --animate-float: floaty 7s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes kenburns {
+  from {
+    transform: scale(1.03) translateY(0);
+  }
+  to {
+    transform: scale(1.15) translateY(-2.5%);
+  }
+}
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes check-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(185, 106, 58, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(185, 106, 58, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(185, 106, 58, 0);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-linen-100 text-pine-900 font-body antialiased;
+  background-image: radial-gradient(
+      ellipse 80% 60% at 85% -10%,
+      rgba(185, 106, 58, 0.08),
+      transparent 60%
+    ),
+    radial-gradient(ellipse 60% 50% at -10% 30%, rgba(69, 89, 76, 0.07), transparent 60%);
+  background-attachment: fixed;
+}
+
+::selection {
+  background: #b96a3a;
+  color: #fbf7f1;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #ecdfc9;
+}
+::-webkit-scrollbar-thumb {
+  background: #c7ab80;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #45594c;
+}
+
+/* ---------- signature shapes ---------- */
+.arch {
+  border-radius: 1000px 1000px 20px 20px;
+}
+.arch-sm {
+  border-radius: 400px 400px 12px 12px;
+}
+
+/* ---------- grain overlay ---------- */
+.noise-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.7'/%3E%3C/svg%3E");
+}
+
+/* ---------- scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--rv-delay, 0ms);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* line-mask title reveal */
+.mask-line {
+  display: block;
+  overflow: hidden;
+}
+.mask-line > span {
+  display: block;
+  transform: translateY(110%);
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--rv-delay, 0ms);
+}
+.is-in .mask-line > span,
+.mask-line.is-in > span {
+  transform: translateY(0);
+}
+
+/* ---------- UI atoms ---------- */
+.eyebrow {
+  @apply text-[11px] font-medium uppercase tracking-[0.32em] text-clay-600;
+}
+
+.btn-primary {
+  @apply inline-flex cursor-pointer items-center justify-center gap-3 bg-pine-800 px-8 py-4 text-[12px] font-medium uppercase tracking-[0.22em] text-linen-100 transition-all duration-300 hover:bg-clay-600 hover:tracking-[0.3em] active:scale-[0.97];
+}
+.btn-ghost {
+  @apply inline-flex cursor-pointer items-center justify-center gap-3 border border-pine-800/30 bg-transparent px-8 py-4 text-[12px] font-medium uppercase tracking-[0.22em] text-pine-800 transition-all duration-300 hover:border-pine-800 hover:bg-pine-800 hover:text-linen-100 active:scale-[0.97];
+}
+.btn-light {
+  @apply inline-flex cursor-pointer items-center justify-center gap-3 bg-linen-100 px-8 py-4 text-[12px] font-medium uppercase tracking-[0.22em] text-pine-900 transition-all duration-300 hover:bg-clay-300 active:scale-[0.97];
+}
+
+.field {
+  @apply w-full rounded-[3px] border border-linen-300 bg-linen-50/80 px-4 py-3 text-[15px] text-pine-900 transition outline-none placeholder:text-pine-500/45 focus:border-clay-500 focus:ring-2 focus:ring-clay-500/20;
+}
+.label {
+  @apply mb-2 block text-[11px] font-medium uppercase tracking-[0.2em] text-pine-500;
+}
+
+.chip {
+  @apply inline-flex cursor-pointer items-center gap-2 rounded-full border border-linen-300 bg-linen-50/60 px-4 py-2 text-[12px] uppercase tracking-[0.14em] text-pine-700 transition-all duration-300 hover:border-clay-500 hover:text-clay-600;
+}
+.chip-on {
+  @apply border-pine-800 bg-pine-800 text-linen-100 hover:border-pine-800 hover:text-linen-100;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.check-path {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: check-draw 0.7s 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(-18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.toast-in {
+  animation: toast-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.pulse-dot {
+  animation: pulse-ring 2s infinite;
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal,
+  .mask-line > span {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
