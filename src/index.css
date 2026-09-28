@@ -1,31 +1,33 @@
 @import "tailwindcss";
 
 /*
- * Palette "Paradis Services" :
- * - clay (terracotta chaud) : accent principal, chaleur/accueil — CTA, prix, badges.
- * - pine (vert ardoise profond) : couleur d'ancrage, confiance/sérénité — header sombre, footer, textes forts.
- * - linen (sable/lin clair) : fond neutre chaud, évoque le tissu/l'accueil plutôt que le blanc froid.
- * Choisi pour un ton "hôtellerie/coliving" rassurant, différent du beige/cognac "haute couture" du site frère.
+ * Palette "Paradis Services" — bleu et blanc :
+ * - clay (bleu vif) : accent principal — CTA, prix, badges. Nom de variable
+ *   conservé (clay) pour ne pas devoir renommer les classes dans tout le
+ *   code ; seules les valeurs hex ont changé.
+ * - pine (bleu marine profond) : couleur d'ancrage, confiance/sérénité —
+ *   header sombre, footer, textes forts.
+ * - linen (blanc / bleu très clair) : fond neutre clair.
  */
 @theme {
-  --color-linen-50: #fbf7f1;
-  --color-linen-100: #f5ede1;
-  --color-linen-200: #ecdfc9;
-  --color-linen-300: #ddc9a8;
-  --color-linen-400: #c7ab80;
+  --color-linen-50: #ffffff;
+  --color-linen-100: #f3f7fc;
+  --color-linen-200: #e4edf8;
+  --color-linen-300: #cddcf0;
+  --color-linen-400: #a9c2e3;
 
-  --color-pine-300: #7c9186;
-  --color-pine-500: #45594c;
-  --color-pine-700: #2c3b31;
-  --color-pine-800: #212e26;
-  --color-pine-900: #17211b;
-  --color-pine-950: #101712;
+  --color-pine-300: #7c9cc4;
+  --color-pine-500: #2f5488;
+  --color-pine-700: #1c3a63;
+  --color-pine-800: #152c4c;
+  --color-pine-900: #0e1f38;
+  --color-pine-950: #081527;
 
-  --color-clay-300: #e2a077;
-  --color-clay-400: #d0824f;
-  --color-clay-500: #b96a3a;
-  --color-clay-600: #9a5630;
-  --color-clay-700: #7d4527;
+  --color-clay-300: #7db2f0;
+  --color-clay-400: #4a92e8;
+  --color-clay-500: #2472d6;
+  --color-clay-600: #1a5cb3;
+  --color-clay-700: #164a8f;
 
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;
   --font-body: "Inter", "Segoe UI", Tahoma, sans-serif;

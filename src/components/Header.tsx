@@ -17,7 +17,7 @@ export function Logo({ light = false }: { light?: boolean }) {
           light ? "bg-clay-500 ring-linen-100/30" : "bg-pine-800 ring-pine-800/15"
         }`}
       >
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fbf7f1" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#ffffff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
           <path d="M4 20V9.5L12 4l8 5.5V20" />
           <path d="M9 20v-6h6v6" />
         </svg>
