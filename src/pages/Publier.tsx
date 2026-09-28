@@ -5,6 +5,8 @@ import { listingToProductPayload } from "../lib/mapProduct";
 import { CITIES, ROOM_TYPES, SERVICE_TYPES, SUGGESTED_AMENITIES } from "../data/catalog";
 import { Reveal } from "../components/Reveal";
 import PhotoUploadWithWatermark from "../components/PhotoUploadWithWatermark";
+import QRCodeCard from "../components/QRCodeCard";
+import ShareMenu from "../components/ShareMenu";
 import { IconArrow, IconCheck } from "../components/Icons";
 
 type Kind = "chambre" | "prestation";
@@ -23,7 +25,7 @@ export default function Publier() {
 
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [done, setDone] = useState(false);
+  const [createdId, setCreatedId] = useState<string | null>(null);
 
   const typeOptions = kind === "chambre" ? ROOM_TYPES : SERVICE_TYPES;
 
@@ -55,8 +57,8 @@ export default function Publier() {
         capacity: capacity ? Number(capacity) : undefined,
         imageUrl: photo?.url,
       });
-      await createProduct(payload);
-      setDone(true);
+      const created = await createProduct(payload);
+      setCreatedId(created.id);
     } catch (err: any) {
       setError(err?.message || "Échec de la publication de l'annonce. Réessayez dans un instant.");
     } finally {
@@ -64,9 +66,10 @@ export default function Publier() {
     }
   }
 
-  if (done) {
+  if (createdId) {
+    const listingUrl = `${window.location.origin}/${kind === "chambre" ? "chambres" : "prestations"}/${createdId}`;
     return (
-      <div className="mx-auto max-w-xl px-5 py-32 text-center">
+      <div className="mx-auto max-w-xl px-5 py-24 text-center">
         <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-pine-800 text-linen-100">
           <IconCheck size={26} className="check-path" />
         </span>
@@ -75,7 +78,13 @@ export default function Publier() {
           Votre annonce a été envoyée à Paradis Services. Elle apparaîtra dans la liste dès sa
           validation par l'équipe.
         </p>
-        <Link to={kind === "chambre" ? "/chambres" : "/prestations"} className="btn-primary mt-8">
+
+        <div className="mt-10 flex flex-col items-center gap-5">
+          <QRCodeCard url={listingUrl} label="Scannez pour voir l'annonce" />
+          <ShareMenu url={listingUrl} text={`${name || "Découvrez cette annonce"} — Paradis Services`} />
+        </div>
+
+        <Link to={kind === "chambre" ? "/chambres" : "/prestations"} className="btn-primary mt-10">
           Voir les annonces <IconArrow size={16} />
         </Link>
       </div>
