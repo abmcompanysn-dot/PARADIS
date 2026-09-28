@@ -101,8 +101,18 @@ export default function Home() {
           </div>
           <div className="flex-1">
             <div className="grid grid-cols-2 gap-4">
-              <div className="aspect-[3/4] translate-y-6 rounded-[10px] bg-clay-500/20 ring-1 ring-linen-100/10" />
-              <div className="aspect-[3/4] rounded-[10px] bg-pine-700/60 ring-1 ring-linen-100/10" />
+              <img
+                src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80"
+                alt="Chambre lumineuse et accueillante"
+                className="aspect-[3/4] translate-y-6 rounded-[10px] object-cover ring-1 ring-linen-100/10"
+                loading="eager"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80"
+                alt="Chambre avec vue, ambiance sereine"
+                className="aspect-[3/4] rounded-[10px] object-cover ring-1 ring-linen-100/10"
+                loading="eager"
+              />
             </div>
           </div>
         </div>
