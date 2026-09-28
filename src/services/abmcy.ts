@@ -56,8 +56,12 @@ export type Product = {
   stock_quantity?: number;
   attributes?: Record<string, any>;
   is_featured?: boolean;
-  image_url?: string;
   description?: string;
+  // Photos attachées via POST /uploads/image?product_id=... (table
+  // product_images côté backend) — pas de champ image_url à plat sur le
+  // produit lui-même. GET /products retourne aussi ce tableau ; s'il est
+  // absent, image_url y figure alors comme repli côté attributes.
+  images?: { id: string; url: string }[];
 };
 
 export type GalleryItem = {

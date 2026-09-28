@@ -26,7 +26,7 @@ export function mapProduct(p: ApiProduct): Listing {
   const priceUnit: Listing["priceUnit"] =
     attrs.price_unit === "mois" ? "mois" : attrs.price_unit === "prestation" ? "prestation" : kind === "chambre" ? "nuit" : "prestation";
 
-  const image = attrs.image_url || p.image_url || FALLBACK_IMAGE;
+  const image = p.images?.[0]?.url || attrs.image_url || FALLBACK_IMAGE;
 
   return {
     id: p.id,
